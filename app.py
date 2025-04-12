@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 import json
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -14,10 +15,20 @@ def index():
 
 @app.route("/show")
 def show():
-    """Renders the page displaying all blog posts."""
+    """Renders the page displaying all blog posts with sorting."""
+    sort_by = request.args.get("sort", "latest")
+
     with open("blog_posts.json", "r") as file:
         blog_posts = json.load(file)
-    return render_template("show.html", posts=blog_posts)
+
+    if sort_by == "latest":
+        blog_posts.sort(key=lambda x: x.get("date", ""), reverse=True)
+    elif sort_by == "oldest":
+        blog_posts.sort(key=lambda x: x.get("date", ""))
+    elif sort_by == "likes":
+        blog_posts.sort(key=lambda x: x.get("likes", 0), reverse=True)
+
+    return render_template("show.html", posts=blog_posts, sort=sort_by)
 
 
 @app.route("/add", methods=["GET", "POST"])
@@ -28,7 +39,9 @@ def add():
             "id": int(request.form["id"]),
             "author": request.form["author"],
             "title": request.form["title"],
-            "content": request.form["content"]
+            "content": request.form["content"],
+            "date": datetime.now().strftime("%B %d, %Y")
+
         }
         with open("blog_posts.json", "r") as file:
             posts = json.load(file)
@@ -75,6 +88,9 @@ def update(post_id):
         post_to_update["title"] = request.form["title"]
         post_to_update["author"] = request.form["author"]
         post_to_update["content"] = request.form["content"]
+        post_to_update['updated'] = datetime.now().strftime("%B %d, %Y")
+
+
 
         with open("blog_posts.json", "w") as file:
             json.dump(blog_posts, file, indent=4)
@@ -93,12 +109,14 @@ def like_post(post_id):
     for post in blog_posts:
         if post["id"] == post_id:
             post["likes"] = post.get("likes", 0) + 1
+            updated_likes = post["likes"]
             break
 
     with open("blog_posts.json", "w") as file:
         json.dump(blog_posts, file, indent=4)
 
-    return redirect(url_for("show") + f"#post-{post_id}")
+    return {"likes": updated_likes}, 200
+
 
 
 if __name__ == "__main__":
