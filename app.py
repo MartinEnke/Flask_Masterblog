@@ -4,7 +4,6 @@ import json
 app = Flask(__name__)
 
 
-
 @app.route('/')
 def index():
     with open("blog_posts.json") as file:
@@ -19,7 +18,6 @@ def show():
         blog_posts = json.load(file)
 
     return render_template('show.html', posts=blog_posts)
-
 
 
 @app.route("/add", methods=['GET', 'POST'])
@@ -45,8 +43,7 @@ def add():
     return render_template("add.html")
 
 
-
-@app.route("/delete/<int:post_id>")
+@app.route("/delete/<int:post_id>", methods=['POST'])
 def delete_blog(post_id):
     with open("blog_posts.json", "r") as file:
         blog_posts = json.load(file)
@@ -56,11 +53,33 @@ def delete_blog(post_id):
     with open("blog_posts.json", "w") as file:
         json.dump(new_blog_posts, file, indent=4)
 
-    return redirect(url_for("index"))
+    return redirect(url_for("show"))
 
 
+@app.route("/update/<int:post_id>", methods=['GET', 'POST'])
+def update(post_id):
+    with open("blog_posts.json", "r") as file:
+        blog_posts = json.load(file)
 
+    post_to_update = None
+    for post in blog_posts:
+        if post is None:
+            return "Post not found", 404
+        if post['id'] == post_id:
+            post_to_update = post
+            break
 
+    if request.method == 'POST':
+        post_to_update['title'] = request.form['title']
+        post_to_update['author'] = request.form['author']
+        post_to_update['content'] = request.form['content']
+
+        with open("blog_posts.json", "w") as file:
+            json.dump(blog_posts, file, indent=4)
+
+        return redirect(url_for("show"))
+
+    return render_template("update.html", post=post_to_update)
 
 
 if __name__ == "__main__":

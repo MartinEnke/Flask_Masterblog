@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <img src="{{ url_for('static', filename='images/masterblog.png') }}" alt="Logo" class="banner">
+  </header>
+
+  <main class="content">
+    <h1>Update Blog</h1><br>
+
+    <form method="POST" action="{{ url_for('update', post_id=post.id) }}">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" value="{{ post.title }}" required><br><br>
+
+        <label for="author">Author:</label><br>
+        <input type="text" id="author" name="author" value="{{ post.author }}" required><br><br>
+
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="6" required>{{ post.content }}</textarea><br><br>
+
+        <button type="submit" >Save Changes</button>
+
+    </form>
+      <br>
+    <form action="{{ url_for('delete_blog', post_id=post.id) }}" method="POST" onsubmit="return confirm('Really delete this post?');">
+        <button type="submit" style="color: red;">Delete Post</button>
+    </form>
+  </main>
+
+  <footer>
+    &copy; {{ 2025 }}
+  </footer>
+</body>
+</html>

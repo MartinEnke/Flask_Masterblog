@@ -27,21 +27,38 @@ h1 {
     margin: 10px 0;
 }
 
-/* Reset and base */
-/*
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: relative;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fff;
-    color: #000;
+/* This ensures the center link is truly centered regardless of heading width */
+.header-bar .center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* Banner at top, full width */
+/* Optional: styling for the link */
+.home-link {
+    text-decoration: none;
+    background-color: #333;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.home-link:hover {
+    background-color: #555;
+}
+
+}
+
 header {
     width: 100%;
     background-color: #000;

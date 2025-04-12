@@ -7,19 +7,36 @@
 </head>
 <body>
     <img src="{{ url_for('static', filename='images/masterblog.png') }}" alt="Masterblog Banner" class="banner">
-    <h2>Latest Blog Posts</h2>
-        {% for post in posts %}
-            <article class="post">
-                <h3>{{ post.title }}</h3>
-                <p><strong>By {{ post.author }}</strong></p>
-                <p>{{ post.content }}</p>
-                <input type="submit" value="Update">
-                <hr>
-            </article>
+
+    <div class="header-bar">
+    <h2 class="left">Latest Blog Posts</h2>
+    <div class="center">
+        <a href="/" class="home-link">Home</a>
+    </div>
+    <div class="right"></div>
+    </div>
+         {% for post in posts %}
+        <article class="post">
+            <h3>{{ post.title }}</h3>
+            <p><strong>By {{ post.author }}</strong></p>
+            <p>{{ post.content }}</p>
+
+           <!-- Buttons side-by-side -->
+            <div class="post-actions">
+                <form action="{{ url_for('update', post_id=post.id) }}" method="GET" style="display: inline-block;">
+                    <button type="submit">Update</button>
+                </form>
+
+                <form action="{{ url_for('delete_blog', post_id=post.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display: inline-block;">
+                    <button type="submit">🗑</button>
+                </form>
+            </div>
+
+        </article>
         {% else %}
             <p>No blog posts found.</p>
         {% endfor %}
-        </article>
+
     <footer>
         &copy; {{ 2025 }}
     </footer>
