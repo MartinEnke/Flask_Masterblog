@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='images/masterblog.png') }}" alt="Masterblog Banner" class="banner">
+    <h2>Latest Blog Posts</h2>
+        {% for post in posts %}
+            <article class="post">
+                <h3>{{ post.title }}</h3>
+                <p><strong>By {{ post.author }}</strong></p>
+                <p>{{ post.content }}</p>
+                <input type="submit" value="Update">
+                <hr>
+            </article>
+        {% else %}
+            <p>No blog posts found.</p>
+        {% endfor %}
+        </article>
+    <footer>
+        &copy; {{ 2025 }}
+    </footer>
+
+</body>
+</html>

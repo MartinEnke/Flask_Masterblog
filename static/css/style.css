@@ -1,0 +1,84 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F5F5;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #4F4F4F;
+}
+
+.post {
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.post h2 {
+    margin-top: 0;
+}
+
+.post p {
+    margin: 10px 0;
+}
+
+/* Reset and base */
+/*
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Banner at top, full width */
+header {
+    width: 100%;
+    background-color: #000;
+}
+
+.banner {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* Main content sits just below the image */
+.content {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.content h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 1.5em;
+    color: #444;
+}
+
+/* Footer at bottom, thin black bar */
+footer {
+    background-color: #000;
+    color: #aaa;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    margin-top: 150px;
+}
+/*

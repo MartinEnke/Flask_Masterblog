@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "author": "Martin",
+        "title": "Space Wonders 1",
+        "content": "The Anomaly of H2O"
+    },
+    {
+        "id": 2,
+        "author": "Martin",
+        "title": "Space Wonders 2",
+        "content": "Earths moon is huge."
+    },
+    {
+        "id": 3,
+        "author": "Martin",
+        "title": "Space Wonder 3",
+        "content": "Tunnel effect"
+    }
+]

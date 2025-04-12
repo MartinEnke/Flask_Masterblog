@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <img src="{{ url_for('static', filename='images/masterblog.png') }}" alt="Masterblog Banner" class="banner">
+    </header>
+
+    <main class="content">
+        <h1>Home</h1><br>
+        <h2>Welcome to Masterblog</h2><br><br><br>
+        <a href="/show">Listed Blog Posts</a><br><br>
+        <a href="/add">Add a new blog post</a><br><br>
+        <a href="/delete/<post_id">Delete a blog post</a>
+
+    </main>
+
+    <footer>
+        &copy; {{ 2025 }}
+    </footer>
+
+</body>
+</html>
