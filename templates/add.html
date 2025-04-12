@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <title>Add New Post</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-<body>
+<body class="add-page">
     <div class="form-container">
         <h1>Add a New Blog Post</h1>
+
         <form method="POST">
             <label for="id">ID:</label>
-            <input type="number" name="id" required>
+            <input type="number" id="id" name="id" required>
 
             <label for="author">Author:</label>
-            <input type="text" name="author" required>
+            <input type="text" id="author" name="author" required>
 
             <label for="title">Title:</label>
-            <input type="text" name="title" required>
+            <input type="text" id="title" name="title" required>
 
             <label for="content">Content:</label>
-            <textarea name="content" required></textarea>
+            <textarea id="content" name="content" required></textarea>
 
-            <input type="submit" value="Add Post">
+            <div class="form-actions">
+                <input type="submit" value="Add Post">
+                <a href="/" class="home-button">Home</a>
+            </div>
         </form>
     </div>
 </body>

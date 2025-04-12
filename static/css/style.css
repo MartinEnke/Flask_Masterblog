@@ -1,23 +1,136 @@
+/* Styles only for the Add Post and Update pages */
+body.add-page {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f6f6f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
 
+.add-page .form-container {
+    background: white;
+    padding: 30px 40px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+}
+
+.add-page h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.add-page label {
+    font-weight: bold;
+}
+
+.add-page input[type="text"],
+.add-page input[type="number"],
+.add-page textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    background-color: #fefefe;
+}
+
+.add-page textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.add-page input[type="submit"],
+.form-actions button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-page input[type="submit"]:hover,
+.form-actions button:hover {
+    background-color: #555;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.home-button {
+    text-decoration: none;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.home-button:hover {
+    background-color: #555;
+}
+
+
+/* General styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5; /* dark to light grey */
     padding: 20px;
     color: #333;
+    margin: 0;
 }
 
 h1 {
     text-align: center;
-    color: #4F4F4F;
+    color: #4f4f4f;
 }
 
-.post {
-    background-color: #FFF;
-    border: 1px solid #DDD;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+.page-title {
+    text-align: center;
+    font-size: 2.2em;
+    margin-top: 10px;
+    color: #333;
 }
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 20px 60px;
+    margin-bottom: 100px; /* spacing before footer */
+}
+
+
+.post {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.post:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
 
 .post h2 {
     margin-top: 0;
@@ -27,22 +140,21 @@ h1 {
     margin: 10px 0;
 }
 
+/* Header */
 .header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 0px;
     position: relative;
 }
 
-/* This ensures the center link is truly centered regardless of heading width */
 .header-bar .center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* Optional: styling for the link */
 .home-link {
     text-decoration: none;
     background-color: #333;
@@ -57,8 +169,6 @@ h1 {
     background-color: #555;
 }
 
-}
-
 header {
     width: 100%;
     background-color: #000;
@@ -71,7 +181,7 @@ header {
     object-fit: cover;
 }
 
-/* Main content sits just below the image */
+/* Main content */
 .content {
     text-align: center;
     padding: 30px 20px;
@@ -89,13 +199,14 @@ header {
     color: #444;
 }
 
-/* Footer at bottom, thin black bar */
+/* Footer */
 footer {
-    background-color: #000;
+
     color: #aaa;
     text-align: center;
     padding: 10px;
     font-size: 0.9em;
     margin-top: 150px;
 }
-/*
+
+

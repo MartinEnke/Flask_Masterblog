@@ -5,40 +5,56 @@
     <title>Show</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <img src="{{ url_for('static', filename='images/masterblog.png') }}" alt="Masterblog Banner" class="banner">
+<body class="show-page">
+
+    <header>
+        <img src="{{ url_for('static', filename='images/salmanac.png') }}" alt="Masterblog Banner" class="banner">
+    </header>
+    <br><br><br>
 
     <div class="header-bar">
-    <h2 class="left">Latest Blog Posts</h2>
-    <div class="center">
-        <a href="/" class="home-link">Home</a>
+        <div class="center">
+            <a href="/" class="home-link">Home</a>
+        </div>
+        <br>
     </div>
-    <div class="right"></div>
-    </div>
-         {% for post in posts %}
-        <article class="post">
+    <br>
+
+<h1 class="page-title">Latest Blog Posts</h1>
+<main>
+  <div class="post-grid">
+    {% for post in posts %}
+        <article class="post" id="post-{{ post.id }}">
             <h3>{{ post.title }}</h3>
             <p><strong>By {{ post.author }}</strong></p>
             <p>{{ post.content }}</p>
 
-           <!-- Buttons side-by-side -->
-            <div class="post-actions">
-                <form action="{{ url_for('update', post_id=post.id) }}" method="GET" style="display: inline-block;">
-                    <button type="submit">Update</button>
-                </form>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                <div>
+                    <form action="{{ url_for('update', post_id=post.id) }}" method="GET" style="display: inline;">
+                        <button type="submit">Update</button>
+                    </form>
 
-                <form action="{{ url_for('delete_blog', post_id=post.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display: inline-block;">
-                    <button type="submit">🗑</button>
-                </form>
+                    <form action="{{ url_for('delete_blog', post_id=post.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display: inline;">
+                        <button type="submit">🗑</button>
+                    </form>
+
+                    <form action="{{ url_for('like_post', post_id=post.id) }}" method="POST" style="display: inline;">
+                        <button type="submit">❤️ Like ({{ post.likes }})</button>
+                    </form>
+                </div>
             </div>
 
+            <hr>
         </article>
-        {% else %}
-            <p>No blog posts found.</p>
-        {% endfor %}
+    {% else %}
+        <p>No blog posts found.</p>
+    {% endfor %}
+  </div>
+</main>
 
     <footer>
-        &copy; {{ 2025 }}
+        &copy; The Quiet Almanac {{ 2025 }}
     </footer>
 
 </body>

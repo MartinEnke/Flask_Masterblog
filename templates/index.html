@@ -4,24 +4,80 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+
+    <style>
+    .content {
+    text-align: center;
+    margin-top: 60px;
+    background-color: transparent; /* removes white box */
+}
+
+    .magic-links {
+        display: flex;
+        justify-content: center;
+        gap: 100px;
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+
+    .magic-link {
+     font-variant: small-caps;
+     letter-spacing: 2px;
+     font-size: 1.4em;
+}
+
+    .magic-link {
+    font-family: 'Lora', serif;
+}
+    .magic-link {
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+    .magic-link {
+    text-decoration: none;
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #222;
+    transition: color 0.3s ease;
+}
+
+.magic-link:hover {
+    color: #555;
+    animation: grow-hover 2s infinite ease-in-out;
+}
+
+@keyframes grow-hover {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.07);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+</style>
+
+
 </head>
 <body>
 
-    <header>
-        <img src="{{ url_for('static', filename='images/masterblog.png') }}" alt="Masterblog Banner" class="banner">
-    </header>
+<header>
+    <img src="{{ url_for('static', filename='images/almanac.png') }}" alt="Masterblog Banner" class="banner">
+</header>
 
-    <main class="content">
-        <h1>Welcome to Masterblog</h1><br><br><br>
-        <a href="/show">View Blog Posts</a><br><br>
-        <a href="/add">Add Blog Post</a><br><br>
+<main class="content">
+    <div class="magic-links">
+        <a href="/show" class="magic-link">Some magic to read</a>
+        <a href="/add" class="magic-link">Some magic to leave</a>
+    </div>
+</main>
 
-
-    </main>
-
-    <footer>
-        &copy; {{ 2025 }}
-    </footer>
+<footer>
+    &copy; The Quiet Almanac {{ 2025 }}
+</footer>
 
 </body>
 </html>
