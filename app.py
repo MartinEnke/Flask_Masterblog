@@ -8,16 +8,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    lang = request.args.get("lang", "en")
     """Renders the home page with all blog posts."""
     with open("blog_posts.json") as file:
         blog_posts = json.load(file)
-    return render_template("index.html", posts=blog_posts)
+    return render_template("index.html", posts=blog_posts, t=translations[lang], lang=lang)
+
 
 
 @app.route("/show")
 def show():
     """Renders the page displaying all blog posts with sorting."""
-    sort_by = request.args.get("sort", "latest")
+    sort_by = request.args.get("sort", "likes")
     lang = request.args.get("lang", "en")  # default to English
 
     with open("blog_posts.json", "r") as file:
@@ -75,33 +77,33 @@ def delete_blog(post_id):
 
 @app.route("/update/<int:post_id>", methods=["GET", "POST"])
 def update(post_id):
-    """Updates an existing blog post by ID."""
-    lang = request.args.get("lang", "en")
+    lang = request.args.get("lang", "en")  # get current language
+
     with open("blog_posts.json", "r") as file:
         blog_posts = json.load(file)
 
     post_to_update = None
     for post in blog_posts:
-        if post is None:
-            return "Post not found", 404
         if post["id"] == post_id:
             post_to_update = post
             break
 
+    if not post_to_update:
+        return "Post not found", 404
+
     if request.method == "POST":
-        post_to_update["title"] = request.form["title"]
+        post_to_update["title"][lang] = request.form["title"]
         post_to_update["author"] = request.form["author"]
-        post_to_update["content"] = request.form["content"]
-        post_to_update['updated'] = datetime.now().strftime("%B %d, %Y")
-
-
+        post_to_update["content"][lang] = request.form["content"]
+        post_to_update["updated"] = datetime.now().strftime("%B %d, %Y")
 
         with open("blog_posts.json", "w") as file:
             json.dump(blog_posts, file, indent=4)
 
-        return redirect(url_for("show"))
+        return redirect(url_for("show", lang=lang))
 
-    return render_template("update.html", post=post_to_update, t=translations[lang], lang=lang)
+    return render_template("update.html", post=post_to_update, lang=lang, t=translations[lang])
+
 
 
 @app.route("/like/<int:post_id>", methods=["POST"])

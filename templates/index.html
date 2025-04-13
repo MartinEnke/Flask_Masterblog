@@ -71,13 +71,14 @@
 
 <main class="content">
     <div class="magic-links">
-        <a href="/show" class="magic-link">Some magic to read</a>
-        <a href="/add" class="magic-link">Some magic to leave</a>
-    </div>
+    <a href="{{ url_for('show', lang=lang) }}" class="magic-link">{{ t.read_magic }}</a>
+    <a href="{{ url_for('add', lang=lang) }}" class="magic-link">{{ t.leave_magic }}</a>
+</div>
+
     <br><br><br><br><br>
     <div class="lang-switcher-inline">
-  <a href="/show?lang=en" class="lang-button subtle">EN</a>
-  <a href="/show?lang=de" class="lang-button subtle">DE</a>
+  <a href="{{ url_for('index', lang='en') }}" class="lang-button subtle">EN</a>
+  <a href="{{ url_for('index', lang='de') }}" class="lang-button subtle">DE</a>
 </div>
 
 
@@ -86,6 +87,24 @@
 <footer>
     &copy; The Quiet Almanac {{ 2025 }}
 </footer>
+
+<script>
+  // Scrollposition merken
+  document.querySelectorAll('.lang-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sessionStorage.setItem('scrollPos', window.scrollY);
+    });
+  });
+
+  // Scrollposition nach dem Laden wiederherstellen
+  window.addEventListener('load', () => {
+    const scrollPos = sessionStorage.getItem('scrollPos');
+    if (scrollPos !== null) {
+      window.scrollTo(0, parseInt(scrollPos));
+      sessionStorage.removeItem('scrollPos'); // nur einmal scrollen
+    }
+  });
+</script>
 
 </body>
 </html>
