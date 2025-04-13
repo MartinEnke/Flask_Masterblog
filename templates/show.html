@@ -36,55 +36,61 @@
     <header>
         <img src="{{ url_for('static', filename='images/salmanac.png') }}" alt="Masterblog Banner" class="banner">
     </header>
-    <br><br><br>
+    <br>
 
     <div class="header-bar">
         <div class="center">
-            <a href="/" class="home-link">Home</a>
+            <a href="/" class="home-link">{{ t["home"] }}</a>
         </div>
-        <br>
+        <br><br><br><br>
     </div>
-    <br>
+    <!-- ✨ Language switcher placed here, cleanly between header and filters -->
+<div class="lang-switcher-inline">
+  <a href="/show?lang=en" class="lang-button subtle">EN</a>
+  <a href="/show?lang=de" class="lang-button subtle">DE</a>
+</div>
+
 
 
     <div class="filters">
-    <a href="{{ url_for('show', sort='latest') }}" class="{% if sort == 'latest' %}active{% endif %}">Latest</a> |
-    <a href="{{ url_for('show', sort='oldest') }}" class="{% if sort == 'oldest' %}active{% endif %}">Oldest</a> |
-    <a href="{{ url_for('show', sort='likes') }}" class="{% if sort == 'likes' %}active{% endif %}">Most Liked</a>
+    <a href="{{ url_for('show', sort='latest', lang=lang) }}" class="{% if sort == 'latest' %}active{% endif %}">{{ t.latest }}</a> |
+    <a href="{{ url_for('show', sort='oldest', lang=lang) }}" class="{% if sort == 'oldest' %}active{% endif %}">{{ t.oldest }}</a> |
+    <a href="{{ url_for('show', sort='likes', lang=lang) }}" class="{% if sort == 'likes' %}active{% endif %}">{{ t.most_liked }}</a>
+
 </div>
 
 <main>
   <div class="post-grid">
     {% for post in posts %}
         <article class="post" id="post-{{ post.id }}">
-            <h3>{{ post.title }}</h3>
-            <p><strong>By {{ post.author }}</strong>
-            <p>{{ post.content }}</p>
+            <h3>{{ post.title[lang] }}</h3>
+            <p><strong>{{ t.by }} {{ post.author }}</strong></p>
+            <p>{{ post.content[lang] }}</p>
             <p class="post-date">
-    Created: {{ post.date }}
-    {% if post.updated %} | Updated: {{ post.updated }}{% endif %}
+  {{ t.created }}: {{ post.date }}
+  {% if post.updated %} | {{ t.updated }}: {{ post.updated }}{% endif %}
 </p>
 
 
 
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                 <div class="post-actions" style="display: flex; gap: 10px; align-items: center;">
-    <!-- Update Button -->
-    <form action="{{ url_for('update', post_id=post.id) }}" method="GET" style="display: inline;">
-        <button type="submit">Update</button>
-    </form>
+    <!-- Update -->
+<form action="{{ url_for('update', post_id=post.id) }}" method="GET">
+  <button type="submit">{{ t["update"] }}</button>
+</form>
 
-    <!-- Delete Button -->
-    <form action="{{ url_for('delete_blog', post_id=post.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display: inline;">
-        <button type="submit">🗑</button>
-    </form>
+<!-- Delete -->
+<form action="{{ url_for('delete_blog', post_id=post.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+  <button type="submit">🗑 {{ t["delete"] }}</button>
+</form>
 
-    <!-- Like Button (AJAX) -->
-    <form onsubmit="likePost(event, {{ post.id }})" style="display: inline;">
-        <button type="submit" id="like-btn-{{ post.id }}">
-            ❤️ Like (<span id="like-count-{{ post.id }}">{{ post.likes }}</span>)
-        </button>
-    </form>
+<!-- Like -->
+<form onsubmit="likePost(event, {{ post.id }})">
+  <button type="submit">
+    ❤️ {{ t["like"] }} (<span id="like-count-{{ post.id }}">{{ post.likes }}</span>)
+  </button>
+</form>
 </div>
 
             </div>
@@ -92,7 +98,7 @@
             <hr>
         </article>
     {% else %}
-        <p>No blog posts found.</p>
+        <p>{{ t.no_posts }}</p>
     {% endfor %}
   </div>
 </main>

@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 import json
 from datetime import datetime
+from translations import translations
 
 app = Flask(__name__)
 
@@ -17,6 +18,7 @@ def index():
 def show():
     """Renders the page displaying all blog posts with sorting."""
     sort_by = request.args.get("sort", "latest")
+    lang = request.args.get("lang", "en")  # default to English
 
     with open("blog_posts.json", "r") as file:
         blog_posts = json.load(file)
@@ -28,12 +30,13 @@ def show():
     elif sort_by == "likes":
         blog_posts.sort(key=lambda x: x.get("likes", 0), reverse=True)
 
-    return render_template("show.html", posts=blog_posts, sort=sort_by)
+    return render_template("show.html", posts=blog_posts, sort=sort_by, t=translations[lang], lang=lang)
 
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
     """Handles form for adding a new blog post."""
+    lang = request.args.get("lang", "en")
     if request.method == "POST":
         new_post = {
             "id": int(request.form["id"]),
@@ -53,7 +56,7 @@ def add():
 
         return redirect(url_for("index"))
 
-    return render_template("add.html")
+    return render_template("add.html", t=translations[lang], lang=lang)
 
 
 @app.route("/delete/<int:post_id>", methods=["POST"])
@@ -73,6 +76,7 @@ def delete_blog(post_id):
 @app.route("/update/<int:post_id>", methods=["GET", "POST"])
 def update(post_id):
     """Updates an existing blog post by ID."""
+    lang = request.args.get("lang", "en")
     with open("blog_posts.json", "r") as file:
         blog_posts = json.load(file)
 
@@ -97,7 +101,7 @@ def update(post_id):
 
         return redirect(url_for("show"))
 
-    return render_template("update.html", post=post_to_update)
+    return render_template("update.html", post=post_to_update, t=translations[lang], lang=lang)
 
 
 @app.route("/like/<int:post_id>", methods=["POST"])

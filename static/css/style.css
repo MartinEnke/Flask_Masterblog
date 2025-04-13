@@ -186,6 +186,33 @@ h1 {
     margin: 10px 0;
 }
 
+.lang-switcher-inline {
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+.lang-button.subtle {
+    padding: 5px 14px;
+    margin: 0 6px;
+    font-size: 0.85em;
+    background-color: #f3f3f3;
+    color: #444;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.lang-button.subtle:hover {
+    background-color: #ddd;
+    color: #111;
+    transform: scale(1.05);
+}
+
+
+
+
 /* Header */
 .header-bar {
     display: flex;
@@ -253,7 +280,7 @@ footer {
     text-align: center;
     padding: 10px;
     font-size: 0.9em;
-    margin-top: 150px;
+    margin-top: 90px;
 }
 
 
