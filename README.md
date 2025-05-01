@@ -37,6 +37,7 @@ Then visit http://localhost:5016 in your browser ✨
 
 
 🧱 Project Structure
+```
 quiet-almanac/
 ├── app.py                 # Main Flask application
 ├── blog_posts.json        # Local data store
@@ -48,6 +49,7 @@ quiet-almanac/
     ├── show.html          # Post list + filters
     ├── add.html           # Add new post
     └── update.html        # Edit existing post
+```
 
 
 
